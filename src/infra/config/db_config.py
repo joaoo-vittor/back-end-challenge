@@ -9,14 +9,18 @@ class DBConnectionHandler:
     def __init__(self) -> None:
         self.__connection_string = MONGO_ATLAS_URL
         self.client = None
-
-    def __get_db(self) -> MongoClient:
-        self.client = MongoClient(self.__connection_string)
-        return self.client["ChallengeCoodesh"]
+        self.db = None
 
     def get_collection(self, collection_name: str) -> Collection:
-        db = self.__get_db()
-        return db[collection_name]
+        self.db = self.client["ChallengeCoodesh"]
+        return self.db[collection_name]
 
-    def disconnect(self) -> None:
+    def __enter__(self):
+        self.client = MongoClient(
+            self.__connection_string, tls=True, tlsAllowInvalidCertificates=True
+        )
+        self.db = self.client["ChallengeCoodesh"]
+        return self
+
+    def __exit__(self, exe_type, exe_val, exc_tb):
         self.client.close()
