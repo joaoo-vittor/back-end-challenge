@@ -43,7 +43,15 @@ class SpaceFlightNewRepository(SpaceFlightNewInterfaceRepository):
             raise Exception("Server error")
 
     def update(self, id: int = None, data: Dict = None) -> Dict:
-        print("")
+        try:
+            space_flight = None
+            with DBConnectionHandler() as connection:
+                collection = connection.get_collection("spaceFlight")
+                space_flight = collection.update_one({"id": id}, {"$set": data})
+
+            return space_flight
+        except:
+            raise Exception("Server error")
 
     def delete(self, id: int = None) -> bool:
         print("")

@@ -36,6 +36,14 @@ def test_should_find_one_space_flight():
     assert data is not None
 
 
+def test_should_update_one_space_flight():
+    respository = SpaceFlightNewRepository()
+    data = respository.update(2, {"title": "Updated Title"})
+
+    assert data.modified_count == 1
+    assert data is not None
+
+
 @pytest.fixture(scope="module", autouse=True)
 def delete_many_space_flight():
     with DBConnectionHandler() as connection:
