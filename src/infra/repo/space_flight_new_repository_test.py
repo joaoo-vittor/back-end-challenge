@@ -28,6 +28,14 @@ def test_should_find_space_flight_pagination():
     assert len(data) == 3
 
 
+def test_should_find_one_space_flight():
+    respository = SpaceFlightNewRepository()
+    data = respository.find_one(2)
+
+    assert list(data.values())[1] == 2
+    assert data is not None
+
+
 @pytest.fixture(scope="module", autouse=True)
 def delete_many_space_flight():
     with DBConnectionHandler() as connection:

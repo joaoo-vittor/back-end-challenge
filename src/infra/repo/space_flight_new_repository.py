@@ -32,7 +32,15 @@ class SpaceFlightNewRepository(SpaceFlightNewInterfaceRepository):
             raise Exception("Server error")
 
     def find_one(self, id: int = None) -> Dict:
-        print("")
+        try:
+            space_flight = None
+            with DBConnectionHandler() as connection:
+                collection = connection.get_collection("spaceFlight")
+                space_flight = collection.find_one({"id": id}, {})
+
+            return space_flight
+        except:
+            raise Exception("Server error")
 
     def update(self, id: int = None, data: Dict = None) -> Dict:
         print("")
