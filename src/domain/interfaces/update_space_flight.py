@@ -2,8 +2,8 @@ from abc import ABC, abstractmethod
 from typing import Dict
 
 
-class FindSpaceFlightUseCase(ABC):
-    """Find Space Flight UseCase"""
+class UpdateSpaceFlightUseCaseInterface(ABC):
+    """Update Space Flight UseCase"""
 
     @abstractmethod
     def update_by(self, id: int, data: dict) -> Dict:

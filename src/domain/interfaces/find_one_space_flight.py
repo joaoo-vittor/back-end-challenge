@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from typing import Dict
 
 
-class FindOneSpaceFlightUseCase(ABC):
+class FindOneSpaceFlightUseCaseInterface(ABC):
     """Find One Space Flight UseCase"""
 
     @abstractmethod
