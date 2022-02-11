@@ -1,1 +1,2 @@
 from .mocks import mock_one_space_flight, mock_list_space_flight
+from .space_flight_new_repository_spy import SpaceFlightNewRepositorySpy

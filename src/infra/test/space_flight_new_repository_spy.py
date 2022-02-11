@@ -3,7 +3,7 @@ from src.utils.errors import MissingParamError
 from .mocks import mock_list_space_flight, mock_one_space_flight
 
 
-class SpaceFlightNewRepository:
+class SpaceFlightNewRepositorySpy:
     def __init__(self) -> None:
         self.param_inserted_data = {}
         self.param_find_limit_page = None
