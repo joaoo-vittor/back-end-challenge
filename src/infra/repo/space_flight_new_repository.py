@@ -54,4 +54,12 @@ class SpaceFlightNewRepository(SpaceFlightNewInterfaceRepository):
             raise Exception("Server error")
 
     def delete(self, id: int = None) -> bool:
-        print("")
+        try:
+            space_flight = None
+            with DBConnectionHandler() as connection:
+                collection = connection.get_collection("spaceFlight")
+                space_flight = collection.delete_one({"id": id})
+
+            return space_flight
+        except:
+            raise Exception("Server error")
