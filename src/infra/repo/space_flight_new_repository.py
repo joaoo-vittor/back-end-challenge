@@ -53,7 +53,7 @@ class SpaceFlightNewRepository(SpaceFlightNewInterfaceRepository):
         except:
             raise Exception("Server error")
 
-    def delete(self, id: int = None) -> bool:
+    def delete(self, id: int = None) -> Dict:
         try:
             space_flight = None
             with DBConnectionHandler() as connection:
