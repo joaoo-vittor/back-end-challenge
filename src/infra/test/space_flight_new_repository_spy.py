@@ -33,6 +33,6 @@ class SpaceFlightNewRepositorySpy:
         self.param_update_data = data
         return {"modified_count": 1}
 
-    def delete(self, id: int = None) -> bool:
+    def delete(self, id: int = None) -> Dict:
         self.param_delete_id = id
         return {"deleted_count": 1}
