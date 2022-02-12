@@ -36,7 +36,7 @@ def test_should_call_insert_with_correct_params_if_data_is_provided():
     assert data["id"] == repository.param_inserted_data["id"]
 
 
-def test_should_return_success_is_true_if_data_is_delected():
+def test_should_return_success_is_true_if_data_is_inserted():
     sut, _ = make_sut()
     data = {"id": 1}
     response = sut.insert_one(data)
@@ -44,7 +44,7 @@ def test_should_return_success_is_true_if_data_is_delected():
     assert response["success"] is True
 
 
-def test_should_return_success_is_false_if_no_data_is_delected():
+def test_should_return_success_is_false_if_no_data_is_inserted():
     sut, _ = make_sut_with_success_false()
     data = {"id": 1}
     response = sut.insert_one(data)
