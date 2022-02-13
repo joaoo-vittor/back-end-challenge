@@ -20,14 +20,15 @@ class SpaceFlightNewRepository(SpaceFlightNewInterfaceRepository):
 
     def find(self, limit_page: int, skip_page: int) -> List[Dict]:
         try:
-            space_flights = None
+            data = None
             with DBConnectionHandler() as connection:
                 collection = connection.get_collection("spaceFlight")
                 skips = limit_page * (skip_page - 1)
                 space_flights = [
                     i for i in collection.find().skip(skips).limit(limit_page)
                 ]
-            return space_flights
+                data = [{**i, "_id": str(i["_id"])} for i in space_flights]
+            return data
         except:
             raise Exception("Server error")
 
