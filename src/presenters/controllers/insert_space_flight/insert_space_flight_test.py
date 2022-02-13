@@ -17,9 +17,6 @@ def test_route():
 
     http_response = sut.route(http_request=http_request)
 
-    print("mock", mock_one_space_flight)
-    print("usecase", use_case.param_insert_one_data)
-    print("status_code", http_response.status_code)
     assert mock_one_space_flight == use_case.param_insert_one_data
 
     assert http_response.status_code == 200
