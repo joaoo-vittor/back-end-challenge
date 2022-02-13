@@ -1,7 +1,15 @@
 from fastapi import APIRouter, Request as RequestFastApi
 from fastapi.responses import JSONResponse
-from src.main.compose import insert_space_flight_compose, find_space_flight_compose
-from src.main.adapters import request_adapter, request_adapter_query_params
+from src.main.compose import (
+    insert_space_flight_compose,
+    find_space_flight_compose,
+    find_one_space_flight_compose,
+)
+from src.main.adapters import (
+    request_adapter,
+    request_adapter_query_params,
+    request_adapter_path_params,
+)
 from src.presenters.errors import HttpErrors
 from json import loads, dumps
 
@@ -20,7 +28,7 @@ def index(request: RequestFastApi):
 
 
 @routes.post("/articles")
-async def index(request: RequestFastApi):
+async def insert_article(request: RequestFastApi):
     controller = insert_space_flight_compose()
     response = None
 
@@ -36,11 +44,27 @@ async def index(request: RequestFastApi):
 
 
 @routes.get("/articles")
-async def index(request: RequestFastApi):
+async def find_articles(request: RequestFastApi):
     controller = find_space_flight_compose()
     response = None
     try:
         response = request_adapter_query_params(request, controller.route)
+    except Exception as e:
+        response = HttpErrors.error_500()
+
+    return JSONResponse(
+        status_code=response.status_code,
+        content=response.body,
+    )
+
+
+@routes.get("/articles/{id}")
+async def find_one_article(request: RequestFastApi):
+    controller = find_one_space_flight_compose()
+    response = None
+    try:
+        response = request_adapter_path_params(request, controller.route)
+        print(response)
     except Exception as e:
         response = HttpErrors.error_500()
 
