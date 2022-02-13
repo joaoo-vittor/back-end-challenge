@@ -4,11 +4,13 @@ from src.main.compose import (
     insert_space_flight_compose,
     find_space_flight_compose,
     find_one_space_flight_compose,
+    update_space_flight_compose,
 )
 from src.main.adapters import (
     request_adapter,
     request_adapter_query_params,
     request_adapter_path_params,
+    request_adapter_path_params_and_body,
 )
 from src.presenters.errors import HttpErrors
 from json import loads, dumps
@@ -39,7 +41,7 @@ async def insert_article(request: RequestFastApi):
 
     return JSONResponse(
         status_code=response.status_code,
-        content={"inserted_id": str(response.body.inserted_id)},
+        content=response.body,
     )
 
 
@@ -64,7 +66,21 @@ async def find_one_article(request: RequestFastApi):
     response = None
     try:
         response = request_adapter_path_params(request, controller.route)
-        print(response)
+    except Exception as e:
+        response = HttpErrors.error_500()
+
+    return JSONResponse(
+        status_code=response.status_code,
+        content=response.body,
+    )
+
+
+@routes.put("/articles/{id}")
+async def find_one_article(request: RequestFastApi):
+    controller = update_space_flight_compose()
+    response = None
+    try:
+        response = await request_adapter_path_params_and_body(request, controller.route)
     except Exception as e:
         response = HttpErrors.error_500()
 
