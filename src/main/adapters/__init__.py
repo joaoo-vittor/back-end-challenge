@@ -1,3 +1,4 @@
 from .request_adapter import request_adapter
 from .request_adapter_query_params import request_adapter_query_params
 from .request_adapter_path_params import request_adapter_path_params
+from .request_adapter_path_params_and_body import request_adapter_path_params_and_body
