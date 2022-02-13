@@ -1,6 +1,6 @@
 from typing import Type
 from src.main.interface import RouterInterface
-from src.domain.usecases.delete_space_flight import DeleteSpaceFlightUseCase
+from src.domain.interfaces.delete_space_flight import DeleteSpaceFlightUseCaseInterface
 from src.presenters.helpers import HttpRequest, HttpResponse
 from src.presenters.errors import HttpErrors
 
@@ -9,7 +9,7 @@ class DeleteSpaceFlightController(RouterInterface):
     """Class to define Route to delete space flight controller"""
 
     def __init__(
-        self, delete_space_flight_use_case: Type[DeleteSpaceFlightUseCase]
+        self, delete_space_flight_use_case: Type[DeleteSpaceFlightUseCaseInterface]
     ) -> None:
         self.delete_space_flight_use_case = delete_space_flight_use_case
 
