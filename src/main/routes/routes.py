@@ -5,6 +5,7 @@ from src.main.compose import (
     find_space_flight_compose,
     find_one_space_flight_compose,
     update_space_flight_compose,
+    delete_space_flight_compose,
 )
 from src.main.adapters import (
     request_adapter,
@@ -81,6 +82,21 @@ async def find_one_article(request: RequestFastApi):
     response = None
     try:
         response = await request_adapter_path_params_and_body(request, controller.route)
+    except Exception as e:
+        response = HttpErrors.error_500()
+
+    return JSONResponse(
+        status_code=response.status_code,
+        content=response.body,
+    )
+
+
+@routes.delete("/articles/{id}")
+async def find_one_article(request: RequestFastApi):
+    controller = delete_space_flight_compose()
+    response = None
+    try:
+        response = request_adapter_path_params(request, controller.route)
     except Exception as e:
         response = HttpErrors.error_500()
 
