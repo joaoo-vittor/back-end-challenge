@@ -34,12 +34,13 @@ class SpaceFlightNewRepository(SpaceFlightNewInterfaceRepository):
 
     def find_one(self, id: int = None) -> Dict:
         try:
-            space_flight = None
+            data = None
             with DBConnectionHandler() as connection:
                 collection = connection.get_collection("spaceFlight")
                 space_flight = collection.find_one({"id": id}, {})
+                data = {**space_flight, "_id": str(space_flight["_id"])}
 
-            return space_flight
+            return data
         except:
             raise Exception("Server error")
 
