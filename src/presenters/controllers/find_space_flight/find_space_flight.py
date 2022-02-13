@@ -18,17 +18,15 @@ class FindSpaceFlightController(RouterInterface):
 
         response = None
 
-        if http_request.body:
+        if http_request.query:
 
-            body_params_is_valid = validate_limit_and_skip(http_request.body)
-
+            body_params_is_valid = validate_limit_and_skip(http_request.query)
             if body_params_is_valid:
-                limit_page = http_request.body["limit_page"]
-                skip_page = http_request.body["skip_page"]
+                limit_page = http_request.query["limit_page"]
+                skip_page = http_request.query["skip_page"]
                 response = self.find_space_flight_use_case.find_by(
                     limit_page=limit_page, skip_page=skip_page
                 )
-
             else:
                 response = {"success": False, "data": None}
 

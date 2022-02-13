@@ -15,7 +15,7 @@ def test_route():
 
     attributes = {"limit_page": 10, "skip_page": 5}
 
-    http_request = HttpRequest(body=attributes)
+    http_request = HttpRequest(query=attributes)
 
     http_response = sut.route(http_request=http_request)
 
