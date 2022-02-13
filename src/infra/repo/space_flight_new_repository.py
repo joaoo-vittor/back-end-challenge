@@ -14,7 +14,7 @@ class SpaceFlightNewRepository(SpaceFlightNewInterfaceRepository):
                 collection = connection.get_collection("spaceFlight")
                 inserted_space_flight = collection.insert_one(data)
 
-            return inserted_space_flight
+            return {"inserted_id": str(inserted_space_flight.inserted_id)}
         except:
             raise Exception("server error")
 
@@ -50,8 +50,7 @@ class SpaceFlightNewRepository(SpaceFlightNewInterfaceRepository):
             with DBConnectionHandler() as connection:
                 collection = connection.get_collection("spaceFlight")
                 space_flight = collection.update_one({"id": id}, {"$set": data})
-
-            return space_flight
+            return {"modified_count": space_flight.modified_count}
         except:
             raise Exception("Server error")
 
@@ -62,6 +61,6 @@ class SpaceFlightNewRepository(SpaceFlightNewInterfaceRepository):
                 collection = connection.get_collection("spaceFlight")
                 space_flight = collection.delete_one({"id": id})
 
-            return space_flight
+            return {"deleted_count": space_flight.deleted_count}
         except:
             raise Exception("Server error")

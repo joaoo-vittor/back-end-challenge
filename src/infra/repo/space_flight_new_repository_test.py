@@ -9,7 +9,7 @@ def test_should_insert_if_data_is_provided():
     respository = SpaceFlightNewRepository()
     response = respository.insert(mock_one_space_flight)
 
-    assert response.inserted_id is not None
+    assert response["inserted_id"] is not None
 
 
 def test_should_raise_if_no_data_is_privided():
@@ -40,7 +40,7 @@ def test_should_update_one_space_flight():
     respository = SpaceFlightNewRepository()
     data = respository.update(2, {"title": "Updated Title"})
 
-    assert data.modified_count == 1
+    assert data["modified_count"] == 1
     assert data is not None
 
 
@@ -48,7 +48,7 @@ def test_should_delete_one_space_flight():
     respository = SpaceFlightNewRepository()
     data = respository.delete(3)
 
-    assert data.deleted_count == 1
+    assert data["deleted_count"] == 1
     assert data is not None
 
 
