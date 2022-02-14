@@ -13,7 +13,6 @@ def custom_openapi(api):
  informações relacionadas a voos espaciais. O projeto a ser desenvolvido por\
  você tem como objetivo criar a API permitindo assim a conexão de outras aplicações.",
         routes=api.routes,
-        servers=[{"description": "developer", "url": "http:0.0.0.0:8000"}],
     )
 
     openapi_schema["paths"]["/"] = {
