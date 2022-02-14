@@ -30,7 +30,7 @@ def index(request: RequestFastApi):
     )
 
 
-@routes.post("/articles")
+@routes.post("/articles/")
 async def insert_article(request: RequestFastApi):
     controller = insert_space_flight_compose()
     response = None
@@ -77,7 +77,7 @@ async def find_one_article(request: RequestFastApi):
 
 
 @routes.put("/articles/{id}")
-async def find_one_article(request: RequestFastApi):
+async def update_one_article(request: RequestFastApi):
     controller = update_space_flight_compose()
     response = None
     try:
@@ -92,7 +92,7 @@ async def find_one_article(request: RequestFastApi):
 
 
 @routes.delete("/articles/{id}")
-async def find_one_article(request: RequestFastApi):
+async def delete_one_article(request: RequestFastApi):
     controller = delete_space_flight_compose()
     response = None
     try:
