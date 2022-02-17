@@ -69,8 +69,17 @@ python3 -m venv venv
 
 ### Ativando o ambiente virtual
 
+#### bash/zsh
 ```
-soure venv/bin/activate
+source venv/bin/activate
+```
+
+OU
+
+#### cmd.exe
+
+```
+venv\Scripts\activate.bat
 ```
 
 ### Instalando as dependências
