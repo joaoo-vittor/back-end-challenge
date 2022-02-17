@@ -1,0 +1,490 @@
+  openapi: "3.0.1"
+  
+  info:
+    description: "Este é um desafio para que possamos ver as suas habilidades como Back-end Developer. Nesse desafio você deverá desenvolver uma REST API que utilizará os dados do projeto Space Flight News, uma API pública com informações relacionadas a voos espaciais. O projeto a ser desenvolvido por você tem como objetivo criar a API permitindo assim a conexão de outras aplicações."
+    version: "1.0.0"
+    title: "Back-end Challenge 🏅 2021"
+  
+  
+  servers:
+  
+    - url: http://0.0.0.0:8000
+      description: Development server
+  
+  
+  tags:
+  - name: "Challenge"
+    description: "Back-end Challenge by Coodesh"
+  
+  paths:
+    /:
+      get:
+        tags:
+        - "Challenge"
+        summary: "mensagem da Challenge"
+        description: "Esta rota retorna uma mensagem da Challenge"
+        responses:
+          "200":
+            description: "successful operation"
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/msgChallenge"
+          
+          "422":
+            description: "Indica que o servidor entende o tipo de conteúdo da entidade da requisição, e a sintaxe da requisição esta correta, mas não foi possível processar as instruções presentes."
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/returnError422"
+              
+          "400":
+            description: "Indica que o servidor não pode ou não irá processar a requisição devido a alguma coisa que foi entendida como um erro do cliente (por exemplo, sintaxe de requisição mal formada, enquadramento de mensagem de requisição inválida ou requisição de roteamento enganosa)."
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/returnError400"
+            
+          "500":
+            description: "Indica que  encontrou uma condição inesperada e que o impediu de atender à solicitação."
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/returnError500"
+  
+            
+    /articles/:
+      post:
+        tags:
+        - "Challenge"
+        summary: "Insere um novo artigo"
+        description: "Está roda é responsável por inserir um novo artigo na base de dados"
+        requestBody:
+          content:
+            application/json:
+              schema:
+                required: ["id"]
+                type: "object"
+                properties:
+                  id:
+                    type: "number"
+                    example: 121345
+                  title:
+                    type: "string"
+                  url:
+                    type: "string"
+                  imageUrl:
+                    type: "string"
+                  newsSite:
+                    type: "string"
+                  summary:
+                    type: "string"
+                  publishedAt:
+                    type: "string"
+                  updatedAt:
+                    type: "string"
+                  featured:
+                    type: "boolean"
+                  launches:
+                    type: "array"
+                    items:
+                      type: "object"
+                      properties:
+                        id:
+                          type: "string" 
+                        provider:
+                          type: "string"
+                  events:
+                    type: "array"
+                    items:
+                      type: "object"
+                      properties:
+                        id:
+                          type: "string" 
+                        provider:
+                          type: "string"
+        
+        responses:
+          "200":
+            description: "successful operation"
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/returnInsertArticle"
+          
+          "422":
+            description: "Indica que o servidor entende o tipo de conteúdo da entidade da requisição, e a sintaxe da requisição esta correta, mas não foi possível processar as instruções presentes."
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/returnError422"
+              
+          "400":
+            description: "Indica que o servidor não pode ou não irá processar a requisição devido a alguma coisa que foi entendida como um erro do cliente (por exemplo, sintaxe de requisição mal formada, enquadramento de mensagem de requisição inválida ou requisição de roteamento enganosa)."
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/returnError400"
+            
+          "500":
+            description: "Indica que  encontrou uma condição inesperada e que o impediu de atender à solicitação."
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/returnError500"
+  
+
+    /articles/{id}:
+      put:
+        tags:
+        - "Challenge"
+        summary: "Atualiza um artigo"
+        description: "Está rota é responsável por atualiza os dados de um determinado artigo"
+        parameters:
+        - name: "id"
+          in: "path"
+          description: "ID do artigo"
+          required: true
+          schema:
+            type: "integer"
+            format: "int32"
+            
+        requestBody:
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  title:
+                    type: "string"
+                  url:
+                    type: "string"
+                  imageUrl:
+                    type: "string"
+                  newsSite:
+                    type: "string"
+                  summary:
+                    type: "string"
+                  publishedAt:
+                    type: "string"
+                  updatedAt:
+                    type: "string"
+                  featured:
+                    type: "boolean"
+                  launches:
+                    type: "array"
+                    items:
+                      type: "object"
+                      properties:
+                        id:
+                          type: "string" 
+                        provider:
+                          type: "string"
+                  events:
+                    type: "array"
+                    items:
+                      type: "object"
+                      properties:
+                        id:
+                          type: "string" 
+                        provider:
+                          type: "string"
+        
+        responses:
+          "200":
+            description: "successful operation"
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/returnUpdateArticle"
+                
+          "422":
+            description: "Indica que o servidor entende o tipo de conteúdo da entidade da requisição, e a sintaxe da requisição esta correta, mas não foi possível processar as instruções presentes."
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/returnError422"
+              
+          "400":
+            description: "Indica que o servidor não pode ou não irá processar a requisição devido a alguma coisa que foi entendida como um erro do cliente (por exemplo, sintaxe de requisição mal formada, enquadramento de mensagem de requisição inválida ou requisição de roteamento enganosa)."
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/returnError400"
+            
+          "500":
+            description: "Indica que  encontrou uma condição inesperada e que o impediu de atender à solicitação."
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/returnError500"
+      
+      get:
+        tags:
+        - "Challenge" 
+        summary: "Obter um artigo"
+        description: "Está rota é responsável por obter um artigo pelo ID"
+        parameters:
+        - name: "id"
+          in: "path"
+          description: "ID do artigo"
+          required: true
+          schema:
+            type: "integer"
+            format: "int32"
+            
+        responses:
+          "200":
+            description: "successful operation"
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/returnArticle"
+          
+          "422":
+            description: "Indica que o servidor entende o tipo de conteúdo da entidade da requisição, e a sintaxe da requisição esta correta, mas não foi possível processar as instruções presentes."
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/returnError422"
+              
+          "400":
+            description: "Indica que o servidor não pode ou não irá processar a requisição devido a alguma coisa que foi entendida como um erro do cliente (por exemplo, sintaxe de requisição mal formada, enquadramento de mensagem de requisição inválida ou requisição de roteamento enganosa)."
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/returnError400"
+            
+          "500":
+            description: "Indica que  encontrou uma condição inesperada e que o impediu de atender à solicitação."
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/returnError500"
+      
+      delete:
+        tags:
+        - "Challenge" 
+        summary: "Deletar um artigo"
+        description: "Está rota é responsável por deletar um artigo pelo ID"
+        parameters:
+        - name: "id"
+          in: "path"
+          description: "ID do artigo"
+          required: true
+          schema:
+            type: "integer"
+            format: "int32"
+            
+        responses:
+          "200":
+            description: "successful operation"
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/returnDeleteArticle"
+          
+          "422":
+            description: "Indica que o servidor entende o tipo de conteúdo da entidade da requisição, e a sintaxe da requisição esta correta, mas não foi possível processar as instruções presentes."
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/returnError422"
+              
+          "400":
+            description: "Indica que o servidor não pode ou não irá processar a requisição devido a alguma coisa que foi entendida como um erro do cliente (por exemplo, sintaxe de requisição mal formada, enquadramento de mensagem de requisição inválida ou requisição de roteamento enganosa)."
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/returnError400"
+            
+          "500":
+            description: "Indica que  encontrou uma condição inesperada e que o impediu de atender à solicitação."
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/returnError500"
+  
+
+    /articles:
+      get:
+        tags:
+        - "Challenge" 
+        summary: "Listagem de artigos"
+        description: "Está rota é responsável por listar os artigos de forma paginada"
+        parameters:
+        - name: "limit_page"
+          in: "query"
+          description: "Quantidade de artigos"
+          required: true
+          schema:
+            type: "integer"
+            format: "int32"
+        - name: "skip_page"
+          in: "query"
+          description: "Salto da quantidade de artigos"
+          required: true
+          schema:
+            type: "integer"
+            format: "int32"
+            
+        responses:
+          "200":
+            description: "successful operation"
+            content:
+              application/json:
+                schema:
+                  type: "array"
+                  items:
+                    $ref: "#/components/schemas/returnArticle"
+          
+          "422":
+            description: "Indica que o servidor entende o tipo de conteúdo da entidade da requisição, e a sintaxe da requisição esta correta, mas não foi possível processar as instruções presentes."
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/returnError422"
+              
+          "400":
+            description: "Indica que o servidor não pode ou não irá processar a requisição devido a alguma coisa que foi entendida como um erro do cliente (por exemplo, sintaxe de requisição mal formada, enquadramento de mensagem de requisição inválida ou requisição de roteamento enganosa)."
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/returnError400"
+            
+          "500":
+            description: "Indica que  encontrou uma condição inesperada e que o impediu de atender à solicitação."
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/returnError500"
+ 
+  components:
+    schemas:
+      msgChallenge:
+        type: "object"
+        properties:
+          msg:
+            type: "string"
+            example: "Back-end Challenge 2021 🏅 - Space Flight News"
+      
+      
+      returnInsertArticle:
+        type: "object"
+        properties:
+          inserted_id:
+            type: "string"
+            example: "620a9473caea6f0ed79f405f"
+
+      
+      returnUpdateArticle:
+        type: "object"
+        properties:
+          modified_count:
+            type: "integer"
+            format: "int32"
+            example: 1
+                    
+                    
+      returnArticle:
+        type: "object"
+        properties:
+          id:
+            type: "integer"
+          title:
+            type: "string"
+          url:
+            type: "string"
+          imageUrl:
+            type: "string"
+          newsSite:
+            type: "string"
+          summary:
+            type: "string"
+          publishedAt:
+            type: "string"
+          updatedAt:
+            type: "string"
+          featured:
+            type: "boolean"
+          launches:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                id:
+                  type: "string" 
+                provider:
+                  type: "string"
+          events:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                id:
+                  type: "string" 
+                provider:
+                  type: "string"
+    
+    
+      returnDeleteArticle:
+        type: "object"
+        properties:
+          deleted_count:
+            type: "integer"
+            example: 1
+
+    
+      returnError422:
+        type: "object"
+        properties:
+          error:
+            type: "object"
+            properties:
+              status:
+                type: "integer"
+                format: "int32"
+                example: 422
+              title:
+                type: "object"
+                properties:
+                  error:
+                    type: "string"
+                    example: "Unprocessable Entity"
+      
+
+      returnError400:
+        type: "object"
+        properties:
+          error:
+            type: "object"
+            properties:
+              status:
+                type: "integer"
+                format: "int32"
+                example: 400
+              title:
+                type: "object"
+                properties:
+                  error:
+                    type: "string"
+                    example: "Bad Request"
+        
+        
+      returnError500:
+        type: "object"
+        properties:
+          error:
+            type: "object"
+            properties:
+              status:
+                type: "integer"
+                format: "int32"
+                example: 500
+              title:
+                type: "object"
+                properties:
+                  error:
+                    type: "string"
+                    example: "Internal Server Error"
+      
