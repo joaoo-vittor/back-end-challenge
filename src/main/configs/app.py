@@ -1,14 +1,9 @@
 from fastapi import FastAPI
-from src.main.configs.doc import custom_openapi
 from src.main.routes import routes
+from fastapi.staticfiles import StaticFiles
 
-api = FastAPI(docs_url="/doc")
-
-
-def openapi():
-    return custom_openapi(api)
-
-
-api.openapi = openapi
+api = FastAPI()
+api.mount("/static", StaticFiles(directory="static"), name="static")
+api.openapi_url = "/static/swagger.yml"
 
 api.include_router(routes)
